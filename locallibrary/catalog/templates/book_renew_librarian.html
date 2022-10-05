@@ -1,0 +1,44 @@
+{% extends 'base_generic.html' %}
+{% block content %}
+
+<h1>Renew: {{ bookinst.book.title }}</h1>
+<p>Borrower: {{ bookinst.borrower }}</p>
+<p{% if bookinst.is_overdue %}class=text-danger{% endif %}>Due date: {{bookinst.due_back}}</p>
+
+<form action="" method="post">
+    {% csrf_token %}
+    <table>
+        {{ form }}
+    </table>
+    <input type="submit" value="Submit">
+</form>
+
+{% endblock %}
+
+<!--
+
+{{ form }} ==>
+======================================================================================
+ <tr>
+  <th><label for="id_renewal_date">Renewal date:</label></th>
+  <td>
+    <input id="id_renewal_date" name="renewal_date" type="text" value="2016-11-08" required />
+    <br />
+    <span class="helptext">Enter date between now and 4 weeks (default 3 weeks).</span>
+  </td>
+</tr
+======================================================================================
+We also can use
+{{ form.as_ul }} as list
+{{ form.as_p }} as paragraph
+
+{{ form.as_table }} as here
+=======================================================================================
+We also can access to any field of form by using dot notation
+{{ form.renewal_date }} => field
+{{ form.renewal_date.errors }} => list of errors
+{{ form.renewal_date.id_for_label }} => id of text mark
+{{ form.renewal_date.help_text }} => help text
+and more..
+======================================================================================
+ -->

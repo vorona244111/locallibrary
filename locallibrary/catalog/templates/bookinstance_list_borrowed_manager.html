@@ -1,0 +1,16 @@
+{% extends 'base_generic.html' %}
+{% block content %}
+    {% if bookinstance_list %}
+        {% for bookinst in bookinstance_list %}
+            <li class="{% if bookinst.is_overdue %}text-danger{% endif %}">
+                <a href="{% url 'book-detail' bookinst.book.pk %}">{{ bookinst.book.title }}</a> {{ bookinst.due_back }}
+                <br>
+                User -{{ bookinst.borrower }}- {% if perms.catalog.can_mark_as_returned %}
+                <a href="{% url 'renew-book-librarian' bookinst.id %}">RENEW!</a> {% endif %}
+            </li>
+            <br>
+        {% endfor %}
+    {% else %}
+        <p>There is no books with status 'o'. (On loan)</p>
+    {% endif %}
+{% endblock %}
