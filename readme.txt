@@ -2,3 +2,4 @@
 для изучения django
 --main1
 --main2
+--commit
